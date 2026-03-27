@@ -29,8 +29,8 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
    \lastmatter命令：继续阿拉伯页码 + 无章节编号 + front版页眉(pure text)
    \appendixmatter命令：继续阿拉伯页码 + 章节编号 + append版页眉(ABC text)。
    ```
+4. 图片和表格的字体已经更改为黑体小五
 5. 【待解决】目录两个字下面需要留白
-6. 【待解决】图片和表格的字体
 
 ## Acknowledgements
 Home Page of the Original Project: `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
