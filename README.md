@@ -31,4 +31,5 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 
 ## Acknowledgement
 Home Page of the Original Project: `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
+
 My bechelor thesis use their template, awesome.
