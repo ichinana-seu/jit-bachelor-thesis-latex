@@ -17,6 +17,8 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 ## PS
 给我亲爱的好朋友用，这样就免去排版之苦了。
 
+能帮我点个免费的star吗？
+
 ## Updates
 1. 去除引用TOC目录引用自身。
 2. 添加至四种面板样式style（控制页眉页脚）：plain front main append
@@ -30,7 +32,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 5. 【待解决】目录两个字下面需要留白
 6. 【待解决】图片和表格的字体
 
-## Acknowledgement
+## Acknowledgements
 Home Page of the Original Project: `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
 
 I applied their template to my bechelor thesis in 2024, awesome.
