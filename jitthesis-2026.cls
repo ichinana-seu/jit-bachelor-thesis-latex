@@ -118,7 +118,7 @@
 \RequirePackage[sort&compress]{gbt7714}
 \RequirePackage{natbib}
 \RequirePackage{hypernat}
-% \RequirePackage{tocbibind}        & TOC Ref self
+\RequirePackage[nottoc]{tocbibind}        %  TOC Ref self
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \RequirePackage{etoolbox}
@@ -421,13 +421,28 @@
   \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
 \fi
 \renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+\DeclareCaptionFont{xiaowuhei}{\zihao{-5}\heiti}
+%% 图片caption的字体
 \captionsetup[subfigure]{labelformat=simple}
-\captionsetup[figure]{labelsep=space}
+\captionsetup[figure]{
+    labelfont=xiaowuhei,  % 标签部分 ("图1-1")：黑体，小五号
+    textfont=xiaowuhei,        % 说明文字部分：宋体，小四号
+    labelsep=space,
+    position=below
+}
 \captionsetup[table]{labelsep=space}
 \captionsetup{font=small}
 \captionsetup[subfigure]{font=small}
-\captionsetup[table]{position=above}
-\captionsetup[figure]{position=below}
+\captionsetup[table]{
+    position=above,
+    labelfont=xiaowuhei,
+    textfont=xiaowuhei,
+    labelsep=space
+}
+
+
+
 \setlength{\intextsep}{\jitt@const@length@skipbetweenword}
 \setlength{\textfloatsep}{\jitt@const@length@skipbetweenword}
 \setlength{\floatsep}{\jitt@const@length@skipbetweenword}
