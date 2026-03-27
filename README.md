@@ -8,9 +8,12 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 
 ## Fork from
 ```
-%% [Original version for SEU] Copyright (C) 2022 Haoqing Xu
+%% [Original version for SEU]
+%% Copyright (C) 2022 Haoqing Xu
 %% School of Artificial Intelligence, Southeast University.
-%% [Modified version for JIT] Copyright (C) 2020-2027 Haixin Zhang
+
+%% [Modified version for JIT]
+%% Copyright (C) 2020-2027 Haixin Zhang
 %% School of Information S&E, Southeast University.
 ```
 
