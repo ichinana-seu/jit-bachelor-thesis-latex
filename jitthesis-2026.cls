@@ -118,7 +118,7 @@
 \RequirePackage[sort&compress]{gbt7714}
 \RequirePackage{natbib}
 \RequirePackage{hypernat}
-\RequirePackage{tocbibind}
+% \RequirePackage{tocbibind}        & TOC Ref self
 \RequirePackage{ifthen}
 \RequirePackage{calc}
 \RequirePackage{etoolbox}
@@ -214,10 +214,24 @@
 
 
 
+% 定义两个私有命令：分别存储 章节纯数字、章节纯标题
+\newcommand{\jitt@chapnum}{}   % 存储：1、2、3...（纯编号）
+\newcommand{\jitt@chapname}{}  % 存储：绪论、摘要、目录...（纯标题）
+% 重定义章节标记：自动捕获当前章节的编号和标题
+\renewcommand{\chaptermark}[1]{
+  \markboth{#1}{}
+  \renewcommand{\jitt@chapname}{#1}        % 捕获标题
+  \renewcommand{\jitt@chapnum}{\thechapter}% 捕获编号
+}
+% \pretocmd{\@schapter}{\renewcommand{\jitt@chapnum}{}}{}{}
+\newcommand{\phantomchapter}[1]{%
+  \renewcommand{\jitt@chapnum}{}% 清空章节编号
+  \renewcommand{\jitt@chapname}{#1}% 赋值页眉标题
+  \chaptermark{#1}% 更新LaTeX标准标记
+  \@makeschapterhead{}\relax% 禁止显示文字、禁止入目录
+}
 
-
-
-%% fancyhdr 页眉页脚宏包 -- 定义三种样式
+%% fancyhdr 页眉页脚宏包 -- 定义4种样式 plain front main append
 %% plain：无页眉页脚（封面 / 声明页专用）
 \fancypagestyle{plain}{%
   \fancyhf{}%
@@ -227,33 +241,49 @@
 %% front：仅页脚居中页码
 \fancypagestyle{front}{%
   \fancyhf{}%
+  \fancyhead[L]{\zihao{-5}\jitt@const@str@headertext}%
+  \fancyhead[R]{\zihao{-5}\leftmark}%
   \fancyfoot[C]{\zihao{-5}\thepage}%
-  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\headrulewidth}{1pt}%
   \renewcommand{\footrulewidth}{0pt}%
 }
 %% main：完整页眉 + 页脚（正文主体用）
 \fancypagestyle{main}{%
   \fancyhf{}%
   \fancyhead[L]{\zihao{-5}\jitt@const@str@headertext}%
+  \fancyhead[R]{\zihao{-5}第\jitt@chapnum 章 \jitt@chapname}%
   \fancyfoot[C]{\zihao{-5}\thepage}%
   \renewcommand{\headrulewidth}{1pt}%
   \renewcommand{\footrulewidth}{0pt}%
 }
+%% append：完整页眉 + 页脚（正文主体用）
+\fancypagestyle{append}{%
+  \fancyhf{}%
+  \fancyhead[L]{\zihao{-5}\jitt@const@str@headertext}%
+  \fancyhead[R]{\zihao{-5}附录\jitt@chapnum\ \ \leftmark}%
+  \fancyfoot[C]{\zihao{-5}\thepage}%
+  \renewcommand{\headrulewidth}{1pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
 %% 暂时显示用plain样式
 \pagestyle{plain}
 
-%% 定义\frontmatter命令：罗马页码 + 无编号 + 仅页码。
+
+
+
+%% 定义\frontmatter命令：罗马页码 + 无编号 + front版页码(pure text)。
 \newcommand{\frontmatter}{%
   \clearpage
   \pagenumbering{Roman}
   \pagestyle{front}
   % \setcounter{secnumdepth}{-2}
   \ctexset{
-    chapter/numbering = false,
+    chapter/numbering = true,
     chapter/pagestyle = front,
   }
 }
-%% 定义\mainmatter命令：阿拉伯页码 + 章节编号 + 完整页眉。
+%% 定义\mainmatter命令：阿拉伯页码 + 章节编号 + main页眉(123 text)。
 \newcommand{\mainmatter}{%
   \clearpage
   \pagenumbering{arabic}
@@ -264,6 +294,34 @@
     chapter/pagestyle = main,
   }
 }
+%% 定义\lastmatter命令：继续阿拉伯页码 + 无章节编号 + front版页眉(pure text)。
+\newcommand{\lastmatter}{%
+  %\clearpage
+  %\pagenumbering{arabic}
+  \pagestyle{front}
+  \ctexset{
+    %secnumdepth = subsection,
+    chapter/numbering = false,
+    chapter/pagestyle = front,
+  }
+}
+%% 定义\appendixmatter命令：继续阿拉伯页码 + 章节编号 + append版页眉(ABC text)。
+\newcommand{\appendixmatter}{%
+  %\clearpage
+  %\pagenumbering{arabic}
+  \pagestyle{append}
+  \ctexset{
+    %secnumdepth = subsection,
+    chapter/numbering = true,
+    chapter/pagestyle = append,
+  }
+}
+
+
+
+
+
+
 
 \newcommand*{\seut@control@mainlinespread}{\setstretch{\seut@const@num@linespread@main}}
 \newcommand*{\seut@control@declarelinespread}{\setstretch{\seut@const@num@linespread@delaration}}
@@ -325,17 +383,20 @@
   parsep = 0pt,
 }
 
-\renewcommand{\cftchapfont}{\normalfont}
-\renewcommand{\cftsecfont}{\normalfont}
-\renewcommand{\cftsubsecfont}{\normalfont}
-\renewcommand{\cftchappagefont}{\normalfont}
-\renewcommand{\cftsecpagefont}{\normalfont}
-\renewcommand{\cftsubsecpagefont}{\normalfont}
-\cftsetindents{chapter}{\parindent}{3.5\ccwd}
+
+%% TOC 目录设定
+
+\renewcommand{\cftchapfont}{\zihao{4}\normalfont}
+\renewcommand{\cftsecfont}{\zihao{4}\normalfont}
+\renewcommand{\cftsubsecfont}{\zihao{4}\normalfont}
+\renewcommand{\cftchappagefont}{\zihao{4}\normalfont}
+\renewcommand{\cftsecpagefont}{\zihao{4}\normalfont}
+\renewcommand{\cftsubsecpagefont}{\zihao{4}\normalfont}
+\cftsetindents{chapter}{\parindent}{1\ccwd}       %% 注意！！宽度3.5太大了
 \cftsetindents{section}{2\parindent}{1.33em}
 \cftsetindents{subsection}{3\parindent}{2em}
 \setlength{\cftparskip}{0pt}
-\setlength{\cftbeforechapskip}{0pt}
+\setlength{\cftbeforechapskip}{4pt}
 \setlength{\cftbeforesecskip}{0pt}
 \setlength{\cftbeforesubsecskip}{0pt}
 \renewcommand{\cftdot}{.}
@@ -409,9 +470,11 @@
 \fi
 \renewcommand{\algorithmcfname}{算法}
 
+%% Refereces 参考文献部分
 \AtBeginEnvironment{thebibliography}{%
   \seut@control@biblinespread
-  \zihao{5}
+  \zihao{-4}
+  % \phantomchapter{\seut@const@str@bibname}
 }
 \setlength{\bibsep}{0pt}
 
@@ -465,7 +528,7 @@
     \setlength{\tabcolsep}{0pt}
     \songti\zihao{3}
     \begin{tabular}{p{3.5cm}c}
-      \makebox[3.5cm][r]{\jitt@field@str@titlepage@title}           % （统一 2.5cm、右对齐，工整）
+      \makebox[3.5cm][r]{\textbf{\jitt@field@str@titlepage@title}}           % （统一 2.5cm、右对齐，工整）
       & \seutplaceholder[9.5cm]{\jitt@var@str@titlepage@title@up} \\ \relax
       \ifcsempty{seut@var@str@titlepage@title@down}{%
         &
@@ -577,7 +640,8 @@
     % -------------------- 标题格式 --------------------
     \clearpage
     % 取消chapter，直接添加目录索引
-    \phantomsection % 生成PDF书签（必备）
+    \phantomchapter{\seut@var@str@abstractname}
+    \phantomsection
     \addcontentsline{toc}{chapter}{\seut@var@str@abstractname} % 目录添加「摘要」
     
     \par
@@ -610,7 +674,8 @@
     % leading
     \clearpage
     % 取消chapter，直接添加目录索引
-    \phantomsection % 生成PDF书签（必备）
+    \phantomchapter{\seut@var@str@abstractname}
+    \phantomsection
     \addcontentsline{toc}{chapter}{\seut@var@str@abstractname} % 目录添加「摘要」
     
     \par
@@ -638,10 +703,12 @@
 
 
 \newenvironment{acknowledgement}{%
+  \lastmatter
   \ctexset{chapter/numbering=false}
   % \setcounter{secnumdepth}{-2}
   \chapter{\seut@const@str@acknowledgename   }
 }{%
+  \mainmatter
   \ctexset{chapter/numbering=true}
   % \setcounter{secnumdepth}{2}
 }
