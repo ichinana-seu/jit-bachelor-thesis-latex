@@ -28,6 +28,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
    \appendixmatter命令：继续阿拉伯页码 + 章节编号 + append版页眉(ABC text)。
    ```
 5. 【待解决】目录两个字下面需要留白
+6. 【待解决】图片和表格的字体
 
 ## Acknowledgement
 Home Page of the Original Project: `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
