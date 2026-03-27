@@ -6,7 +6,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 
 ## 改模版尚未完成
 
-## Fork from
+## Fork from `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
 ```
 %% [Original version for SEU] Copyright (C) 2022 Haoqing Xu
 %% School of Artificial Intelligence, Southeast University.
@@ -16,6 +16,13 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 
 ## PS
 给我亲爱的好朋友用，这样就免去排版之苦了。
+
+## Updates
+1. 去除引用TOC目录引用自身。
+2. 添加至四种面板样式style（控制页眉页脚）：plain front main append
+3. 添加若干命令cmd（控制页码、控制style）：\\
+   \frontmatter命令：罗马页码 + 无编号 + front版页码(pure text)。\mainmatter命令：阿拉伯页码 + 章节编号 + main页眉(123 text)。
+5. 【待解决】目录两个字下面需要留白
 
 ## Acknowledgement
 Home Page of the Original Project: `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
