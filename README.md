@@ -6,7 +6,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 
 ## 改模版尚未完成
 
-## Fork from `https://github.com/SuikaXhq/seu-bachelor-thesis-2022`
+## Fork from `SuikaXhq/seu-bachelor-thesis-2022`
 ```
 %% [Original version for SEU] Copyright (C) 2022 Haoqing Xu
 %% School of Artificial Intelligence, Southeast University.
