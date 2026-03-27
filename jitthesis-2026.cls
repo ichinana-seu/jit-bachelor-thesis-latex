@@ -133,7 +133,7 @@
   includehead=true,
   includefoot=true,
   headheight=22pt,
-  headsep=0.5\seut@const@length@skipbetweenword,
+  headsep=0.5\jitt@const@length@skipbetweenword,
   footskip=22pt,
   top=1.5cm,
   bottom=1.75cm,
@@ -206,6 +206,16 @@
 \setsansfont{\seut@var@str@font@sans}
 \setmonofont{\seut@var@str@font@mono}
 
+% Haixin： 补上缺失的楷体，因为ctex 宏包天生就自带\songti（宋体）、\heiti（黑体）、\fangsong（仿宋）
+\newcommand{\kaiti}{\CJKfamily{zhkai}} 
+% \newcommand{\songti}{\CJKfamily{zhsong}}
+% \newcommand{\heiti}{\CJKfamily{zhhei}}
+% \newcommand{\fangsong}{\CJKfamily{zhfs}}
+
+
+
+
+
 
 %% fancyhdr 页眉页脚宏包 -- 定义三种样式
 %% plain：无页眉页脚（封面 / 声明页专用）
@@ -224,7 +234,7 @@
 %% main：完整页眉 + 页脚（正文主体用）
 \fancypagestyle{main}{%
   \fancyhf{}%
-  \fancyhead[C]{\zihao{-5}\seut@const@str@headertext}%
+  \fancyhead[L]{\zihao{-5}\jitt@const@str@headertext}%
   \fancyfoot[C]{\zihao{-5}\thepage}%
   \renewcommand{\headrulewidth}{1pt}%
   \renewcommand{\footrulewidth}{0pt}%
@@ -260,41 +270,45 @@
 \newcommand*{\seut@control@toclinespread}{\setstretch{\seut@const@num@linespread@toc}}
 \newcommand*{\seut@control@biblinespread}{\setstretch{\seut@const@num@linespread@bib}}
 \linespread{\seut@const@num@linespread@main}
-\newcommand*{\fixtitlespread}{\vspace*{-\seut@const@length@skipbetweenword}}
+\newcommand*{\fixtitlespread}{\vspace*{-\jitt@const@length@skipbetweenword}}
 \setdisplayskipstretch{0.5}
 
+%%%%% chapter 和 section样式
 \ctexset{
   contentsname = \seut@const@str@contentsname,
   appendixname = \seut@const@str@appendixname,
   bibname      = \seut@const@str@bibname,
   chapter = {
     format = {%
-      \zihao{3}\bfseries\centering\heiti%
+      \zihao{3}\centering\heiti%
     },
-    aftername = \jitt@space{0.5},
+    aftername = \jitt@space{0.7},
     pagestyle = main,
-    beforeskip = 8.3pt - 0.5\seut@const@length@skipbetweenword + 0.05cm,
-    afterskip = 8.3pt + 0.5\seut@const@length@skipbetweenword,
+    beforeskip = 10pt + 0.5\jitt@const@length@skipbetweenword,
+    afterskip = 20pt + 0.5\jitt@const@length@skipbetweenword,
     fixskip = true,
+    number=\arabic{chapter},
+    name={,}
+    % numbermark = \quad
   },
   section = {
     format = {%
-      \zihao{4}\heiti%
+      \zihao{-3}\heiti%
     },
     hang = false,
-    aftername = \ ,
-    beforeskip = 9.3pt + 0.5\seut@const@length@skipbetweenword,
-    afterskip = 9.3pt + 0.5\seut@const@length@skipbetweenword,
+    aftername = \jitt@space{0.7} ,
+    beforeskip = 15pt + 0.5\jitt@const@length@skipbetweenword,
+    afterskip = 10pt + 0.5\jitt@const@length@skipbetweenword,
     fixskip = true,
   },
   subsection = {%
     format = {%
-      \zihao{-4}\bfseries\songti
+      \zihao{4}\heiti
     },
     hang = false,
     aftername = \ ,
-    beforeskip = \seut@const@length@skipbetweenword,
-    afterskip = \seut@const@length@skipbetweenword,
+    beforeskip = 12pt + 0.5\jitt@const@length@skipbetweenword,
+    afterskip = 8pt + 0.5\jitt@const@length@skipbetweenword,
     fixskip = true,
   },
   appendix = {%
@@ -303,6 +317,7 @@
   %secnumdepth = subsection,
   %tocdepth    = subsection,
 }
+
 \setcounter{tocdepth}{2}
 \setlist{
   itemsep = 0pt,
@@ -352,9 +367,9 @@
 \captionsetup[subfigure]{font=small}
 \captionsetup[table]{position=above}
 \captionsetup[figure]{position=below}
-\setlength{\intextsep}{\seut@const@length@skipbetweenword}
-\setlength{\textfloatsep}{\seut@const@length@skipbetweenword}
-\setlength{\floatsep}{\seut@const@length@skipbetweenword}
+\setlength{\intextsep}{\jitt@const@length@skipbetweenword}
+\setlength{\textfloatsep}{\jitt@const@length@skipbetweenword}
+\setlength{\floatsep}{\jitt@const@length@skipbetweenword}
 \setlength{\abovecaptionskip}{7pt}
 \setlength{\belowcaptionskip}{7pt}
 \setlength\heavyrulewidth{1pt}
@@ -401,18 +416,29 @@
 \setlength{\bibsep}{0pt}
 
 \renewcommand{\title}[2]{%
-  \renewcommand*{\seut@var@str@titlepage@title}{#1#2}
-  \renewcommand*{\seut@var@str@titlepage@title@up}{#1}
-  \renewcommand*{\seut@var@str@titlepage@title@down}{#2}}
-\newcommand{\studentnum}[1]{\renewcommand*{\seut@var@str@titlepage@studentnum}{#1}}
-\renewcommand{\author}[1]{\renewcommand*{\seut@var@str@titlepage@author}{#1}}
-\newcommand{\department}[1]{\renewcommand*{\seut@var@str@titlepage@department}{#1}}
-\newcommand{\major}[1]{\renewcommand*{\seut@var@str@titlepage@major}{#1}}
-\newcommand{\supervisor}[1]{\renewcommand*{\seut@var@str@titlepage@supervisor}{#1}}
-\newcommand{\period}[1]{\renewcommand*{\seut@var@str@titlepage@period}{#1}}
+  \renewcommand*{\jitt@var@str@titlepage@title}{#1#2}
+  \renewcommand*{\jitt@var@str@titlepage@title@up}{#1}
+  \renewcommand*{\jitt@var@str@titlepage@title@down}{#2}}
+
+\newcommand{\titleEN}[2]{%
+  \renewcommand*{\jitt@var@str@titlepage@titleEN}{#1#2}
+  \renewcommand*{\jitt@var@str@titlepage@titleEN@up}{#1}
+  \renewcommand*{\jitt@var@str@titlepage@titleEN@down}{#2}}
+  
+\newcommand{\studentnum}[1]{\renewcommand*{\jitt@var@str@titlepage@studentnum}{#1}}
+\renewcommand{\author}[1]{\renewcommand*{\jitt@var@str@titlepage@author}{#1}}
+\newcommand{\department}[1]{\renewcommand*{\jitt@var@str@titlepage@department}{#1}}
+\newcommand{\major}[1]{\renewcommand*{\jitt@var@str@titlepage@major}{#1}}
+\newcommand{\supervisor}[1]{\renewcommand*{\jitt@var@str@titlepage@supervisor}{#1}}
+\newcommand{\periodsubmit}[1]{\renewcommand*{\jitt@var@str@titlepage@periodsubmit}{#1}}
+\newcommand{\perioddefense}[1]{\renewcommand*{\jitt@var@str@titlepage@perioddefense}{#1}}
+\newcommand{\class}[1]{\renewcommand*{\jitt@var@str@titlepage@class}{#1}}
 \newcommand{\seut@control@placeholder}[2][\linewidth]{\CJKunderline{\makebox[#1]{#2}}}
+
+
 \def\seutplaceholder{\@ifnextchar[\seut@control@placeholder\CJKunderline}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% maketitle命令，设置主页
 \renewcommand{\maketitle}{%
   \GetFileInfo{jitthesis-2026.cls}
@@ -440,11 +466,11 @@
     \songti\zihao{3}
     \begin{tabular}{p{3.5cm}c}
       \makebox[3.5cm][r]{\jitt@field@str@titlepage@title}           % （统一 2.5cm、右对齐，工整）
-      & \seutplaceholder[9.5cm]{\seut@var@str@titlepage@title@up} \\ \relax
+      & \seutplaceholder[9.5cm]{\jitt@var@str@titlepage@title@up} \\ \relax
       \ifcsempty{seut@var@str@titlepage@title@down}{%
         &
       }{%
-        & \seutplaceholder[9.5cm]{\seut@var@str@titlepage@title@down}}
+        & \seutplaceholder[9.5cm]{\jitt@var@str@titlepage@title@down}}
     \end{tabular}
     \par
     }
@@ -454,11 +480,12 @@
     \renewcommand*{\arraystretch}{1.5}
     \setlength{\tabcolsep}{0pt}
     \zihao{-3}
+    %% 没招了，始终无法居中对齐，只能在最右边添加一列了。唉。
     \begin{tabular}{p{3cm} c p{3cm} c p{1cm}}
       \makebox[3cm][r]{\jitt@field@str@titlepage@author}
       & \seutplaceholder[4.2cm]{\jitt@var@str@titlepage@author} 
       & \makebox[3cm][r]{\jitt@field@str@titlepage@supervisor}
-      & \seutplaceholder[4.2cm]{\jitt@var@str@titlepage@studentnum} 
+      & \seutplaceholder[4.2cm]{\jitt@var@str@titlepage@supervisor} 
       & \jitt@space{1} \\ \relax
       
       \makebox[3cm][r]{\jitt@field@str@titlepage@department}
@@ -484,8 +511,8 @@
   \end{titlepage}
 }
 
-
-%% JIT 本科论文用不到， 保留SEU版本
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% makedeclaration，原创性声明。 JIT 本科论文用不到，直接保留SEU版本
 \newcommand{\makedeclaration}{%
   \begin{titlepage}
     \vspace*{52pt}
@@ -521,33 +548,99 @@
   \end{titlepage}
 }
 
+
+%% 摘要
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\seut@control@keywords}[1]{%
-  \def\nextitem{\def\nextitem{\seut@var@str@abstractsep}}%
+  \def\nextitem{\def\nextitem{\jitt@var@str@abstractsep}}%
   \renewcommand*{\do}[1]{\nextitem##1}%
   \docsvlist{#1}}
-\newcommand{\keywords}{%
+%% Keywords 行
+
+\newcommand{\keywordsCN}{
     \par\hspace*{\fill}\par
-    \noindent\seut@var@str@keywords\seut@control@keywords}
-\renewenvironment{abstract}[1][zh]{%
-  \ifstrequal{#1}{zh}{%
+    \noindent
+    {\heiti\zihao{4}\seut@var@str@keywords}
+    \seut@control@keywords
+}
+\newcommand{\keywordsEN}{
+    \par\hspace*{\fill}\par
+    \noindent
+    {\textbf{\zihao{4}\seut@var@str@keywords}}
+    \seut@control@keywords
+}
+
+\newenvironment{abstractCN}{
     \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@zh}
     \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@zh}
-    \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@zh}
-  }{%
-    \ifstrequal{#1}{en}{%
-      \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@en}
-      \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@en}
-      \renewcommand*{\seut@var@str@abstractsep}{\seut@const@str@abstractsep@en}
-    }{\ClassError{jitthesis-2026}%
-      {Unknown option for abstract. Try `zh' or `en' for the abstract options.}%
-      {Try `zh' or `en' for the abstract options.}}}
-  \chapter{\seut@var@str@abstractname}
-}{}
+    \renewcommand*{\jitt@var@str@abstractsep}{\jitt@const@str@abstractsep@zh}
+    % -------------------- 标题格式 --------------------
+    \clearpage
+    % 取消chapter，直接添加目录索引
+    \phantomsection % 生成PDF书签（必备）
+    \addcontentsline{toc}{chapter}{\seut@var@str@abstractname} % 目录添加「摘要」
+    
+    \par
+    {\centering\linespread{2.5}
+    \heiti\zihao{-2}
+    \jitt@var@str@titlepage@title  \par}
+    
+    \vspace{44pt}
+    {\centering
+    \heiti\zihao{3}
+    \seut@var@str@abstractname  \par}
+    \vspace{32pt}
+
+    % Text
+    \kaiti\zihao{-4}% 小四号楷体
+    \linespread{1.6}\selectfont% 1.5倍行距
+    \parindent=2\ccwd% 首行缩进2字符（中文标准）
+    
+}{
+    % Recover to normal
+    \par\linespread{1}\selectfont
+    \songti
+}
+
+
+\newenvironment{abstractEN}{
+    \renewcommand*{\seut@var@str@abstractname}{\seut@const@str@abstractname@en}
+    \renewcommand*{\seut@var@str@keywords}{\seut@const@str@keywords@en}
+    \renewcommand*{\jitt@var@str@abstractsep}{\jitt@const@str@abstractsep@en}
+    % leading
+    \clearpage
+    % 取消chapter，直接添加目录索引
+    \phantomsection % 生成PDF书签（必备）
+    \addcontentsline{toc}{chapter}{\seut@var@str@abstractname} % 目录添加「摘要」
+    
+    \par
+    {\centering
+    \textbf{\zihao{-2}\jitt@var@str@titlepage@titleEN}
+    \par}
+
+    \vspace{44pt}
+    {\centering
+    \textbf{\zihao{3}
+    \seut@var@str@abstractname}
+    \par}
+    \vspace{32pt}
+
+    % Text
+    \normalfont\zihao{-4}
+    \linespread{1.6}\selectfont
+    \parindent=2\ccwd
+}{
+    % Recover to normal
+    \par\linespread{1}\selectfont
+    \songti
+}
+
+
 
 \newenvironment{acknowledgement}{%
   \ctexset{chapter/numbering=false}
   % \setcounter{secnumdepth}{-2}
-  \chapter{\seut@const@str@acknowledgename}
+  \chapter{\seut@const@str@acknowledgename   }
 }{%
   \ctexset{chapter/numbering=true}
   % \setcounter{secnumdepth}{2}
