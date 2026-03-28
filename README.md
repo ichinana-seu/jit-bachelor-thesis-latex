@@ -22,7 +22,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 ## Updates
 1. 去除引用TOC目录引用自身。
 2. Defined a new command `\kaiti`, compatible with default CJK command `\songti`(for normal text), `\heiti`(for bold) and `\fangsong`.
-3. 添加至四种面板样式style（控制页眉页脚）：plain front main append
+3. 添加至四种page样式(style)（控制页眉页脚）：`plain`, `front`, `main`, `append`.
 4. 添加若干命令cmd（控制页码、控制style）：
    ```
    \frontmatter命令：罗马页码 + 无编号 + front版页码(pure text)。
