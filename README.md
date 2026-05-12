@@ -35,6 +35,9 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
    \appendixmatter命令：继续阿拉伯页码 + 章节编号 + append版页眉(ABC text)。
    ```
 5. 图片和表格的字体已经更改为黑体小五。
+### v1.2
+1. Change fig `3-1` to `3.1`.
+2. Change `\cite` color to red.
 
 ## TODO
 1. 【待解决】目录两个字下面需要留白。
