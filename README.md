@@ -4,7 +4,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 
 金陵科技学院本科毕业论文（设计） LaTeX模版，基于东南大学模版修改。
 
-## Mannual
+## Manual
 1. 各选项请参考`SuikaXhq/seu-bachelor-thesis-2022`的使用手册。
 2. 或者自行翻阅`jitthesis-2026.cls`文件
 3. 使用XeLaTeX编译。
@@ -18,7 +18,7 @@ LaTeX Template for bachelor thesis of Jinling Institute of Technology, China.
 ```
 
 ## PS
-给我亲爱的好朋友用，这样就免去排版之苦了。
+给我亲爱的好朋友双双用，这样就免去排版之苦了。
 
 能帮我点个免费的star吗？
 
